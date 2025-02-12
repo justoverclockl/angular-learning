@@ -3,11 +3,11 @@
     (click)="onSelectUser()"
   >
     <img
-      src="{{ imagePath }}"
-      alt="{{ selectedUser.name }} avatar image"
+      [src]="imagePath()"
+      alt="{{ name }} avatar image"
     />
     <span>
-      {{ selectedUser.name }}
+      {{ name }}
     </span>
   </button>
 </div>
