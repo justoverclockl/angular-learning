@@ -5,6 +5,7 @@ import {UserComponent} from './user/user.component';
 import {DUMMY_USERS} from './dummy-users';
 import {UserTasksComponent} from './user-tasks/user-tasks.component';
 import {NgForOf, NgIf} from '@angular/common';
+import {User, Users} from './user/types';
 
 @Component({
   selector: 'app-root',
@@ -13,10 +14,10 @@ import {NgForOf, NgIf} from '@angular/common';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  users = DUMMY_USERS
+  users: Users = DUMMY_USERS
   selectedUserId = signal<string>('')
 
-  get selectedUser() {
+  get selectedUser(): User | undefined {
     return this.users.find(user => user.id === this.selectedUserId())
   }
 
