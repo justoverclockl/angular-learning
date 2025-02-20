@@ -1,11 +1,13 @@
 import {Component, input, output} from '@angular/core';
 import {SingleTaskComponent} from './single-task/single-task.component';
 import {SingleTaskType} from './single-task/types';
+import {NewTaskComponent} from './new-task/new-task.component';
 
 @Component({
   selector: 'app-user-tasks',
   imports: [
-    SingleTaskComponent
+    SingleTaskComponent,
+    NewTaskComponent
   ],
   templateUrl: './user-tasks.component.html',
   styleUrl: './user-tasks.component.css'
@@ -13,6 +15,8 @@ import {SingleTaskType} from './single-task/types';
 export class UserTasksComponent {
   name = input.required<string>()
   userId = input.required<string>()
+
+  isAddingTask = false
 
   tasks: Array<SingleTaskType> = [
     {
@@ -42,5 +46,18 @@ export class UserTasksComponent {
 
   get selectedUserTasks() {
     return this.tasks.filter(task => task.userId === this.userId())
+  }
+
+  onClickCompleteTask(id: string) {
+    console.log(id)
+    this.tasks = this.tasks.filter(task => task.id !== id)
+  }
+
+  onStartAddTask() {
+    this.isAddingTask = true;
+  }
+
+  onCancelAddTask() {
+    this.isAddingTask = false;
   }
 }
