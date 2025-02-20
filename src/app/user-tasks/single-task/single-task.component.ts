@@ -1,5 +1,5 @@
 import {Component, input} from '@angular/core';
-import {SingleTaskType} from './types';
+import { type SingleTaskType} from './types';
 
 @Component({
   selector: 'app-single-task',
