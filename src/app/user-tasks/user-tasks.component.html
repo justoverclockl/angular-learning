@@ -1,5 +1,6 @@
 @if (isAddingTask) {
   <app-new-task
+    (addTask)="onNewTask($event)"
     (closeModal)="onCancelAddTask()"
   />
 }

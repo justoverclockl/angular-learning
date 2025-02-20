@@ -1,6 +1,6 @@
 import {Component, input, output} from '@angular/core';
 import {SingleTaskComponent} from './single-task/single-task.component';
-import {SingleTaskType} from './single-task/types';
+import {NewTaskType, SingleTaskType} from './single-task/types';
 import {NewTaskComponent} from './new-task/new-task.component';
 
 @Component({
@@ -59,5 +59,16 @@ export class UserTasksComponent {
 
   onCancelAddTask() {
     this.isAddingTask = false;
+  }
+
+  onNewTask(taskData: NewTaskType) {
+    this.tasks.unshift({
+      id: new Date().getTime().toString(),
+      title: taskData.title,
+      summary: taskData.summary,
+      dueDate: taskData.dueDate,
+      userId: this.userId()
+    })
+    this.isAddingTask = false
   }
 }
