@@ -2,55 +2,34 @@ import {Component, input, output} from '@angular/core';
 import {SingleTaskComponent} from './single-task/single-task.component';
 import {NewTaskType, SingleTaskType} from './single-task/types';
 import {NewTaskComponent} from './new-task/new-task.component';
+import {UserTasksService} from './user-tasks.service';
 
 @Component({
   selector: 'app-user-tasks',
   imports: [
     SingleTaskComponent,
-    NewTaskComponent
+    NewTaskComponent,
   ],
   templateUrl: './user-tasks.component.html',
   styleUrl: './user-tasks.component.css'
 })
 export class UserTasksComponent {
+  constructor(
+    private tasksService: UserTasksService
+  ) {
+
+  }
+
   name = input.required<string>()
   userId = input.required<string>()
-
   isAddingTask = false
 
-  tasks: Array<SingleTaskType> = [
-    {
-      id: 't1',
-      userId: 'u1',
-      title: 'Master Angular',
-      summary:
-        'Learn all the basic and advanced features of Angular & how to apply them.',
-      dueDate: '2025-12-31',
-    },
-    {
-      id: 't2',
-      userId: 'u3',
-      title: 'Build first prototype',
-      summary: 'Build a first prototype of the online shop website',
-      dueDate: '2024-05-31',
-    },
-    {
-      id: 't3',
-      userId: 'u3',
-      title: 'Prepare issue template',
-      summary:
-        'Prepare and describe an issue template which will help with project management',
-      dueDate: '2024-06-15',
-    },
-  ]
-
   get selectedUserTasks() {
-    return this.tasks.filter(task => task.userId === this.userId())
+    return this.tasksService.getUserTasks(this.userId())
   }
 
   onClickCompleteTask(id: string) {
-    console.log(id)
-    this.tasks = this.tasks.filter(task => task.id !== id)
+    return this.tasksService.removeTask(id)
   }
 
   onStartAddTask() {
@@ -62,13 +41,7 @@ export class UserTasksComponent {
   }
 
   onNewTask(taskData: NewTaskType) {
-    this.tasks.unshift({
-      id: new Date().getTime().toString(),
-      title: taskData.title,
-      summary: taskData.summary,
-      dueDate: taskData.dueDate,
-      userId: this.userId()
-    })
+    this.tasksService.addTask(taskData, this.userId())
     this.isAddingTask = false
   }
 }

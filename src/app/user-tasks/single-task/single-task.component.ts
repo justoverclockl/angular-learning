@@ -1,9 +1,14 @@
 import {Component, input, output} from '@angular/core';
 import { type SingleTaskType} from './types';
+import {CardComponent} from '../../shared/card/card.component';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-single-task',
-  imports: [],
+  imports: [
+    CardComponent,
+    DatePipe
+  ],
   templateUrl: './single-task.component.html',
   styleUrl: './single-task.component.css'
 })
