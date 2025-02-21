@@ -1,6 +1,5 @@
-import {Component, input, output} from '@angular/core';
+import {Component, inject, input, output} from '@angular/core';
 import {SingleTaskComponent} from './single-task/single-task.component';
-import {NewTaskType, SingleTaskType} from './single-task/types';
 import {NewTaskComponent} from './new-task/new-task.component';
 import {UserTasksService} from './user-tasks.service';
 
@@ -14,11 +13,7 @@ import {UserTasksService} from './user-tasks.service';
   styleUrl: './user-tasks.component.css'
 })
 export class UserTasksComponent {
-  constructor(
-    private tasksService: UserTasksService
-  ) {
-
-  }
+  private tasksService = inject(UserTasksService)
 
   name = input.required<string>()
   userId = input.required<string>()
@@ -38,10 +33,5 @@ export class UserTasksComponent {
 
   onCancelAddTask() {
     this.isAddingTask = false;
-  }
-
-  onNewTask(taskData: NewTaskType) {
-    this.tasksService.addTask(taskData, this.userId())
-    this.isAddingTask = false
   }
 }
