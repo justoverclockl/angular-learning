@@ -1,7 +1,8 @@
-import {Component, input, output} from '@angular/core';
+import {Component, inject, input} from '@angular/core';
 import { type SingleTaskType} from './types';
 import {CardComponent} from '../../shared/card/card.component';
 import {DatePipe} from '@angular/common';
+import {UserTasksService} from '../user-tasks.service';
 
 @Component({
   selector: 'app-single-task',
@@ -13,10 +14,11 @@ import {DatePipe} from '@angular/common';
   styleUrl: './single-task.component.css'
 })
 export class SingleTaskComponent {
+  private tasksService = inject(UserTasksService)
+
   task = input.required<SingleTaskType>()
-  complete = output<string>()
 
   onCompleteTask() {
-    this.complete.emit(this.task().id)
+    this.tasksService.removeTask(this.task().id)
   }
 }

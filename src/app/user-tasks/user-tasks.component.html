@@ -26,7 +26,6 @@
     @for (task of selectedUserTasks; track task.id) {
       <li>
         <app-single-task
-          (complete)="onClickCompleteTask($event)"
           [task]="task"
         />
       </li>

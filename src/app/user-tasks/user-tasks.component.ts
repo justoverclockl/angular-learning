@@ -1,4 +1,4 @@
-import {Component, inject, input, output} from '@angular/core';
+import {Component, inject, input} from '@angular/core';
 import {SingleTaskComponent} from './single-task/single-task.component';
 import {NewTaskComponent} from './new-task/new-task.component';
 import {UserTasksService} from './user-tasks.service';
@@ -21,10 +21,6 @@ export class UserTasksComponent {
 
   get selectedUserTasks() {
     return this.tasksService.getUserTasks(this.userId())
-  }
-
-  onClickCompleteTask(id: string) {
-    return this.tasksService.removeTask(id)
   }
 
   onStartAddTask() {
